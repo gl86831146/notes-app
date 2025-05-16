@@ -4,11 +4,13 @@ import cors from 'cors';
 import  userRoutes from './routes/userRoutes.js';
 import noteRoutes from './routes/noteRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
 
 dotenv.config();
 
 const app = express();
 
+// const allowedOrigns = ["http://8.136.110.222:9090"];
 const allowedOrigns = ["http://localhost:5173"];
 app.use(
     cors({
@@ -26,6 +28,8 @@ app.use(
 
 app.use(express.json())
 
+// 将 AI 路由放在其他路由之前
+app.use('/api/ai', aiRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/categories', categoryRoutes);
